@@ -19,6 +19,15 @@ const UserType = new GraphQLObjectType({
   },
 })
 
+// const ShowType = newGraphQLObjectType({
+//   name: "Show",
+//   fields: {
+//     id: { type: GraphQLInt },
+//     name: { type: GraphQLString },
+//     rating: { type: GraphQLInt },
+//   },
+// })
+
 //RootQuery used to allow GraphQL to ENTER into our application's data graph
 //The most important part of the RootQuery is the resolve() function
 const RootQuery = new GraphQLObjectType({
@@ -31,11 +40,16 @@ const RootQuery = new GraphQLObjectType({
         return _.find(users, { id: args.id })
       },
     },
+    // tvShow: {
+    //   type: ShowType,
+    //   args: { name: { type: GraphQLString } },
+    //   resolve(parentValue, args) {
+    //     return _.find(tvShows, { id: args.id })
+    //   },
+    // },
   },
 })
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
 })
-
-
