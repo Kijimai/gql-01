@@ -1,8 +1,13 @@
 //This file's purpose instructs graphQL what type of data to have in the application
 
 const graphql = require("graphql")
+const _ = require("lodash")
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = graphql
 
-const { GraphQLObjectType, GraphQLString, GraphQLInt } = graphql
+const user = [
+  { id: "23", firstName: "Bill", age: 20 },
+  { id: "47", firstName: "Samantha", age: 22 },
+]
 
 //This object instructs graphql what a user object is supposed to have
 const UserType = new GraphQLObjectType({
@@ -23,8 +28,14 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        
+        return _.find(users, { id: args.id })
       },
     },
   },
 })
+
+module.exports = new GraphQLSchema({
+  query: RootQuery,
+})
+
+
